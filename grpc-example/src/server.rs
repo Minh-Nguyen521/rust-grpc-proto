@@ -3,6 +3,7 @@ use tonic::{transport::Server, Request, Response, Status};
 use hello::greeter_server::{Greeter, GreeterServer};
 use hello::{HelloReply, HelloRequest, GoodByeReply, GoodByeRequest};
 
+// we need this to know where to find the generated code
 pub mod hello {
     tonic::include_proto!("hello");
 }

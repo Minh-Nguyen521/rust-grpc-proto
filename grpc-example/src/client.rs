@@ -2,6 +2,7 @@ use hello::greeter_client::GreeterClient;
 use hello::HelloRequest;
 use hello::GoodByeRequest;
 
+// we need this to know where to find the generated code
 pub mod hello {
     tonic::include_proto!("hello");
 }
