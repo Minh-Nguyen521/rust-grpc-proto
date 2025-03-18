@@ -1,1 +1,1 @@
-# Injective-proto
+# gRPC Example in Rust
