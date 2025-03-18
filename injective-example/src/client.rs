@@ -1,4 +1,4 @@
-use tonic::Request;
+use tonic::{Request, transport::Channel};
 
 pub mod proto {
     include!("../rust/proto/mod.rs");
@@ -9,8 +9,10 @@ use proto::injective::exchange::v1beta1::{MsgCreateSpotMarketOrder, OrderInfo, O
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Create a gRPC client
-    let mut client = MsgClient::connect("http://localhost:26657").await?;
+    // Create a gRPC client with TLS
+    let channel = Channel::from_static("https://testnet.sentry.chain.tm.injective.network:443").await?;
+
+    let mut client = MsgClient::new(channel);
 
     let spot_order = SpotOrder {
         market_id: "market_id".to_string(),
@@ -25,7 +27,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         trigger_price: "0".to_string(),
     };
     
-
     // Create a spot market order
     let order = MsgCreateSpotMarketOrder {
         sender: "sender_address".to_string(),
